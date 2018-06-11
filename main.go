@@ -1,9 +1,6 @@
 package main
 
 import (
-	"crypto/sha1"
-	"fmt"
-	"io"
 	"log"
 	"math/rand"
 	"reflect"
@@ -30,25 +27,6 @@ var (
 	// mutation probability
 	mutationProb = 0.05
 )
-
-func getShaFitness(chrom []string) float64 {
-	var fitness int
-	str := strings.Join(chrom[:], "")
-
-	h := sha1.New()
-	io.WriteString(h, str)
-	digest := h.Sum(nil)
-	hexdigestList := fmt.Sprintf("% x", digest)
-	hexdigest := strings.Join(strings.Split(hexdigestList, " ")[:], "")
-	hex := strings.Split(hexdigest, "")
-
-	for i := 0; i < len(target); i++ {
-		if target[i] == hex[i] {
-			fitness++
-		}
-	}
-	return float64(fitness) / float64(len(target))
-}
 
 func getFitness(chrom []string) float64 {
 	var fitness int
